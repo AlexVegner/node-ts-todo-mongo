@@ -7,14 +7,14 @@ class App {
 
     public app: express.Application;
     public routes: Routes = new Routes();
-    // public mongoUrl: string = 'mongodb://localhost/CRMdb';  
+    public mongoUrl: string = 'mongodb://dbUser:12345678@localhost:27017/todoDB';  
     // public mongoUrl: string = 'mongodb://dalenguyen:123123@localhost:27017/CRMdb';
 
     constructor() {
         this.app = express();
         this.config();        
         this.routes.routes(this.app);     
-       // this.mongoSetup();
+        this.mongoSetup();
     }
 
     private config(): void{
@@ -24,10 +24,10 @@ class App {
         this.app.use(express.static('public'));
     }
 
-    // private mongoSetup(): void{
-    //     mongoose.Promise = global.Promise;
-    //     mongoose.connect(this.mongoUrl);        
-    // }
+    private mongoSetup(): void{
+        mongoose.Promise = global.Promise;
+        mongoose.connect(this.mongoUrl);        
+    }
 
 }
 

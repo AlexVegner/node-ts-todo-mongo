@@ -11,8 +11,8 @@
     "prod": "npm run build && npm run start"
   },
   "keywords": [
-    "Dale",
-    "Nguyen"
+    "Alex",
+    "Vegner"
   ],
   "author": "Alex Vegner",
   "license": "ISC",
