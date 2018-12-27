@@ -7,49 +7,54 @@ const Task = mongoose.model('Tasks', TaskSchema);
 export class TaskController{
 
     public create (req: Request, res: Response) {                
-        let newContact = new Task(req.body);
+        let newTask = new Task(req.body);
     
-        newContact.save((err, contact) => {
+        newTask.save((err, task) => {
             if (err) {
-                res.send(err);
-            }    
-            res.json(contact);
+                res.status(400).send(err);
+            } else {
+                res.json(task);
+            }
         });
     }
 
     public getAll(req: Request, res: Response) {           
-        Task.find({}).select('-__v').exec((err, contact) => {
+        Task.find({}).select('-__v').exec((err, tasks) => {
             if (err) {
-                res.send(err);
+                res.status(400).send(err);
+            } else {
+                res.json(tasks);
             }
-            res.json(contact);
         });
     }
 
     public getByID (req: Request, res: Response) {           
-        Task.findById(req.params.taskId).select('-__v').exec((err, contact) => {
+        Task.findById(req.params.taskId).select('-__v').exec((err, task) => {
             if (err) {
-                res.send(err);
+                res.status(400).send(err);
+            } else {
+                res.json(task);
             }
-            res.json(contact);
         });
     }
 
     public update (req: Request, res: Response) {           
-        Task.findOneAndUpdate({ _id: req.params.taskId }, req.body, { new: true }, (err, contact) => {
+        Task.findOneAndUpdate({ _id: req.params.taskId }, req.body, { new: true }, (err, task) => {
             if (err) {
-                res.send(err);
+                res.status(400).send(err);
+            } else {
+                res.json(task);
             }
-            res.json(contact);
         });
     }
 
     public delete (req: Request, res: Response) {           
         Task.remove({ _id: req.params.taskId }, (err, contact) => {
             if (err) {
-                res.send(err);
+                res.status(400).send(err);
+            } else {
+                res.json({ message: 'Successfully deleted contact!'});
             }
-            res.json({ message: 'Successfully deleted contact!'});
         });
     }
     
